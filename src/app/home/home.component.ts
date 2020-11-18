@@ -1,6 +1,4 @@
-import { NullTemplateVisitor } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { NullInjector } from '@angular/core/src/di/injector';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +8,7 @@ import { NullInjector } from '@angular/core/src/di/injector';
 export class HomeComponent implements OnInit {
 
   fileToUpload: File = null;
+  frequency: number;
 
   constructor() { }
 
@@ -18,9 +17,28 @@ export class HomeComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = reader.result.toString().trim();
+      const fileTextArray = text.split('\n');
+      console.log(fileTextArray);
+      console.log(fileTextArray[12].split(' '));
+      this.setFrequency(parseInt(fileTextArray[12].split(' ')[-1]));
+      console.log(this.frequency);
+    };
+    const fileText = reader.readAsText(this.fileToUpload);
+
     console.log(this.fileToUpload.name);
     console.log(this.fileToUpload.size);
     console.log(this.fileToUpload.type);
   }
 
+  convertAcvArray() {
+
+  }
+
+  setFrequency(frequency: number) {
+    this.frequency = frequency;
+  }
 }
