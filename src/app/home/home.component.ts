@@ -23,10 +23,10 @@ export class HomeComponent implements OnInit {
       const text = reader.result.toString().trim();
       const fileTextArray = text.split('\n');
       console.log(fileTextArray);
-      console.log(fileTextArray[12].split(' '));
-      this.setFrequency(parseInt(fileTextArray[12].split(' ')[-1]));
-      console.log(this.frequency);
-    };
+      const frequencyLine = fileTextArray[12].split(' ');
+      this.setFrequency(parseInt(frequencyLine[3], 10));
+      console.log('frequency', this.frequency);
+     };
     const fileText = reader.readAsText(this.fileToUpload);
 
     console.log(this.fileToUpload.name);
@@ -40,5 +40,9 @@ export class HomeComponent implements OnInit {
 
   setFrequency(frequency: number) {
     this.frequency = frequency;
+  }
+
+  parseArrays(frequency: Array<string>) {
+
   }
 }
